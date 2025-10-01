@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Проект "Комменты"</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <ul class="comments">
+        
+      </ul>
+      <div class="add-form">
+        <input
+          type="text"
+          class="add-form-name"
+          placeholder="Введите ваше имя"
+          id="name-input"
+        />
+        <textarea
+          type="textarea"
+          class="add-form-text"
+          placeholder="Введите ваш коментарий"
+          rows="4"
+          id="text-input"
+        ></textarea>
+        <div class="add-form-row">
+          <button class="add-form-button">Написать</button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    "use strict";
+    
+    const comments = [
+      {
+        name: "Глеб Фокин",
+        date: new Date(),
+        text: "Это будет первый комментарий на этой странице",
+        likes: 3,
+        isliked: false,
+      },
+      {
+        name: "Варвара Н.",
+        date: new Date(),
+        text: "Мне нравится как оформлена эта страница! ❤️",
+        likes: 75,
+        isliked: true,
+      },
+    ];
+
+    const renderComments = () => {
+      const list = document.querySelector(".comments");
+
+      list.innerHTML = comments
+      .map((comment, index) => {
+        return `
+        <li class="comment">
+          <div class="comment-header">
+            <div>${comment.name}</div>
+            <div>${comment.date.toLocaleDateString()}</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              ${comment.text}
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">${comment.likes}</span>
+              <button class="like-button ${comment.isliked ? "-active-like" : ""
+              }"></button>
+            </div>
+          </div>
+        </li>
+        `;
+      })
+      .join("");
+
+    };
+
+renderComments();
+
+const addButton = document.querySelector(".add-form-button");
+const name = document.getElementById("name-input");
+const text = document.getElementById("text-input");
+
+addButton.addEventListener("click", () => {
+  const newComment = {
+    name: name.value,
+    date: new Date(),
+    text: text.value,
+    likes: 0,
+  };
+
+  comments.push(newComment);
+
+  renderComments();
+
+  name.value = "";
+  text.value = "";
+});
+
+
+  </script>
+</html>
