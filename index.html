@@ -71,7 +71,7 @@
           <div class="comment-footer">
             <div class="likes">
               <span class="likes-counter">${comment.likes}</span>
-              <button class="like-button ${comment.isliked ? "-active-like" : ""
+              <button data-index="${index}" class="like-button ${comment.isliked ? "-active-like" : ""
               }"></button>
             </div>
           </div>
@@ -80,6 +80,14 @@
       })
       .join("");
 
+      const likeButtons = document.querySelectorAll{".like-button"};
+
+      for (const likeButton of likeButtons) {
+        likeButton.addEventListener("click", () => {
+          const index = likeButton.dataset.index;
+          const comment = comments[index];
+        })
+      }
     };
 
 renderComments();
