@@ -80,13 +80,21 @@
       })
       .join("");
 
-      const likeButtons = document.querySelectorAll{".like-button"};
+      const likeButtons = document.querySelectorAll(".like-button");
 
       for (const likeButton of likeButtons) {
         likeButton.addEventListener("click", () => {
           const index = likeButton.dataset.index;
           const comment = comments[index];
-        })
+
+          comment.likes = comment.isliked
+          ? comment.likes - 1
+          : comment.likes + 1;
+
+          comment.isliked = !comment.isliked;
+
+          renderComments();
+        });
       }
     };
 
@@ -111,8 +119,6 @@ addButton.addEventListener("click", () => {
   name.value = "";
   text.value = "";
 });
-
-
 
   </script>
 </html>
