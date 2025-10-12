@@ -34,6 +34,9 @@
 
   <script>
     "use strict";
+
+    const name = document.getElementById("name-input");
+    const text = document.getElementById("text-input");
     
     const comments = [
       {
@@ -96,13 +99,21 @@
           renderComments();
         });
       }
+
+      const commentsElements = document.querySelectorAll(".comment");
+
+      for (const commentElement of commentsElements) {
+        commentElement.addEventListener("click", () => {
+          const currentComment = comments[commentElement.dataset.index];
+          text.value = `${currentComment.name}: ${currentComment.text}`;
+        });
+      }
     };
 
 renderComments();
 
 const addButton = document.querySelector(".add-form-button");
-const name = document.getElementById("name-input");
-const text = document.getElementById("text-input");
+
 
 addButton.addEventListener("click", () => {
   const newComment = {
