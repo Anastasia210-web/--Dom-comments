@@ -37,6 +37,10 @@
 
     const name = document.getElementById("name-input");
     const text = document.getElementById("text-input");
+
+    const sanitizeHtml = (value) => {
+      return value.replaseAll("<", "&lt;").replaseAll(">", "&gt;");
+    }
     
     const comments = [
       {
@@ -61,7 +65,7 @@
       list.innerHTML = comments
       .map((comment, index) => {
         return `
-        <li class="comment">
+        <li class="comment" data-index="${index}">
           <div class="comment-header">
             <div>${comment.name}</div>
             <div>${comment.date.toLocaleDateString()}</div>
@@ -86,7 +90,9 @@
       const likeButtons = document.querySelectorAll(".like-button");
 
       for (const likeButton of likeButtons) {
-        likeButton.addEventListener("click", () => {
+        likeButton.addEventListener("click", (event) => {
+          event.stopPropagation();
+
           const index = likeButton.dataset.index;
           const comment = comments[index];
 
@@ -103,6 +109,7 @@
 
       for (const commentElement of commentsElements) {
         commentElement.addEventListener("click", () => {
+
           const currentComment = comments[commentElement.dataset.index];
           text.value = `${currentComment.name}: ${currentComment.text}`;
         });
