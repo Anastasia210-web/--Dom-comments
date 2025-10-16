@@ -89,6 +89,14 @@
         likeButton.addEventListener("click", () => {
           const index = likeButton.dataset.index;
           const comment = comments[index];
+
+           comment.likes = comment.isliked
+          ? comment.likes - 1
+          : comment.likes + 1;
+
+          comment.isliked = !comment.isliked;
+
+          renderComments();
         })
       }
     };
