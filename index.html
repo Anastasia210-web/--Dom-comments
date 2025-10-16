@@ -97,11 +97,20 @@
           comment.isliked = !comment.isliked;
 
           renderComments();
-        })
+        });
+      }
+      const commentsElements = document.querySelectorAll(".comment");
+
+      for (const commentElement of commentsElements) {
+        commentElement.addEventListener("click", () => {
+          const currentComment = comments[commentElement.dataset.index];
+          text.value = "${currentComment.name}: ${currentComment.text}";
+        });
       }
     };
 
-renderComments();
+    renderComments();
+
 
 const addButton = document.querySelector(".add-form-button");
 
