@@ -39,7 +39,7 @@
     const text = document.getElementById("text-input");
 
     const sanitizeHtml = (value) => {
-      return value.replaseAll("<", "&lt;").replaseAll(">", "&gt;");
+      return value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     }
     
     const comments = [
@@ -124,9 +124,9 @@ const addButton = document.querySelector(".add-form-button");
 
 addButton.addEventListener("click", () => {
   const newComment = {
-    name: name.value,
+    name: sanitizeHtml(name.value),
     date: new Date(),
-    text: text.value,
+    text: sanitizeHtml(text.value),
     likes: 0,
   };
 
