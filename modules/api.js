@@ -38,8 +38,7 @@ export const fetchComments = () => {
             if (response.status === 201) {
                 return response.json()
             }
-        }
-    )
+        })
                     .then(() => {
                 return fetchComments()
             })
