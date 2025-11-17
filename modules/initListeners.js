@@ -1,4 +1,5 @@
-import { comments } from './comments.js'
+import { postComment } from './api.js'
+import { comments, updateComments } from './comments.js'
 import { sanitizeHtml } from './sanitizeHtml.js'
 
 export const initLikeListeners = (renderComments) => {
@@ -40,18 +41,13 @@ export const initAddCommentListener = (renderComments) => {
     const addButton = document.querySelector('.add-form-button')
 
     addButton.addEventListener('click', () => {
-        const newComment = {
-            name: sanitizeHtml(name.value),
-            date: new Date(),
-            text: sanitizeHtml(text.value),
-            likes: 0,
-        }
 
-        comments.push(newComment)
-
-        renderComments()
-
+        postComment(sanitizeHtml(text.value), sanitizeHtml(name.value)).then
+        ((data) => {
+            updateComments(data)
+           renderComments() 
         name.value = ''
         text.value = ''
+        })
     })
 }
